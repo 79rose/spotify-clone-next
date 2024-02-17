@@ -1,4 +1,4 @@
-"use Client";
+"use client";
 
 import { twMerge } from "tailwind-merge"
 import { TbPlaylist } from "react-icons/tb";
