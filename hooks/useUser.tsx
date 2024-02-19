@@ -19,7 +19,7 @@ export interface Props {
 
 export const MyUserContextProvider = (Props: Props) => {
     const {
-        session, // 
+        session, 
         isLoading: isLoadingUser,
         supabaseClient: supabase
     } = useSessionContext()
