@@ -7,6 +7,10 @@ import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import Button from './Button';
 import useAuthModal from '@/hooks/useAuthModal';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useUser } from '@/hooks/useUser';
+import { FaUserAlt } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 interface HeaderProps {
     children: React.ReactNode;
     className?: string;
@@ -15,9 +19,21 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
    
     const router = useRouter();
-        const {onOpen} = useAuthModal();
-    const handleLogout = () => {
+    const { onOpen } = useAuthModal();
+    const supabaseClient = useSupabaseClient();
+    const { user } = useUser();
+    const handleLogout = async () => {
         // logout user
+        const { error } = await supabaseClient.auth.signOut();
+
+        // TODO: 重置 所有正在播放的内容
+        router.refresh();
+
+        if (error) {
+          toast.error(`${error.message}`);
+        } else {
+            toast.success('登出成功');
+        }
     }
     return (
         <div className={twMerge(`
@@ -64,7 +80,24 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                 </div>
                 </div>
                 <div className='flex justify-between items-center gap-x-4'>
-                    <>
+                    {user ? (
+                        <div className='flex gap-x-4 items-center truncate '>
+                            <Button
+                                onClick={handleLogout}
+                                className='bg-white px-6 py-2 '>
+                                 Logout
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                router.push('/account');
+                            }}
+                                className='bg-white'
+                            >
+                            <FaUserAlt></FaUserAlt>
+                            </Button>
+                        </div>
+                    ) : (
+                     <>
                      <div>
                             <Button
                                 onClick={() => {onOpen() }}
@@ -80,6 +113,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                         </Button>
                     </div>
                     </>
+                    )}
                 </div>
             </div>
             {children}

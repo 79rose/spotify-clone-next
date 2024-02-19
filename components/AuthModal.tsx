@@ -5,7 +5,6 @@ import useAuthModal from "@/hooks/useAuthModal";
 import { useSessionContext, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { on } from "events";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
