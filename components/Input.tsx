@@ -3,8 +3,9 @@ import { twMerge } from "tailwind-merge";
 
 interface InputProps 
     extends React.HtmlHTMLAttributes<HTMLInputElement>{
-    type?: 'text' | 'password' | 'email';
+    type?: 'text' | 'file'
     disabled?: boolean;
+    accept?: string;
     }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({

@@ -9,9 +9,7 @@ import useUploadModal from "@/hooks/useUploadModal";
 interface LibraryProps {
     className?: string;
 }
-const onClick = () => {
-    console.log("clicked");
-}
+
 const Library: React.FC<LibraryProps> = ({ className }) => {
     const authModal = useAuthModal();
     const uploadModal = useUploadModal();
