@@ -3,14 +3,27 @@
 import { twMerge } from "tailwind-merge"
 import { TbPlaylist } from "react-icons/tb";
 import { AiOutlinePlus } from "react-icons/ai";
+import { useUser } from "@/hooks/useUser";
+import useAuthModal from "@/hooks/useAuthModal";
+import useUploadModal from "@/hooks/useUploadModal";
 interface LibraryProps {
-
     className?: string;
 }
 const onClick = () => {
     console.log("clicked");
 }
 const Library: React.FC<LibraryProps> = ({ className }) => {
+    const authModal = useAuthModal();
+    const uploadModal = useUploadModal();
+    const { user,subscription } = useUser();
+    const onClick = () => {
+        if (!user) {
+            authModal.onOpen();
+        }
+        // TODO: 检查是否订阅
+        // TODO: handle upload 
+        uploadModal.onOpen();
+    }
     return (
         <div className="
         flex flex-col

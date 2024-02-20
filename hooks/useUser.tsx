@@ -1,6 +1,6 @@
 import { Subscription,UserDetails } from "@/type";
 import { User, useUser as useSupaUser, useSessionContext } from "@supabase/auth-helpers-react";
-import { createContext, use, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
  
 type UserContextType = {
